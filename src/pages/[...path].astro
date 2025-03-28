@@ -1,0 +1,28 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+
+// `post` will match your 'blog' collection schema type
+
+export async function getStaticPaths() {
+  const systems = await getCollection("systems");
+  return systems.map((system: CollectionEntry<"systems">) => ({
+    params: { path: system.slug },
+    props: { system },
+  }));
+}
+
+interface Props {
+  system: CollectionEntry<"systems">;
+}
+
+const { system } = Astro.props;
+const { Content } = await system.render();
+---
+
+<Layout>
+  <h2>
+    {system.slug}
+  </h2>
+  <Content />
+</Layout>

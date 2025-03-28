@@ -8,11 +8,17 @@ importers:
 
   .:
     dependencies:
+      98.css:
+        specifier: ^0.1.20
+        version: 0.1.20
       astro:
         specifier: ^5.5.5
         version: 5.5.5(rollup@4.37.0)(typescript@5.8.2)
 
 packages:
+
+  98.css@0.1.20:
+    resolution: {integrity: sha512-9oM+AZMfxG59Zz+bnAjIxAX2AKnBPkEJjf84ATto0wUNdRPxV+jhov1rHKe/wl6D0giuWwY603RxwrVVG4v2sA==}
 
   '@astrojs/compiler@2.11.0':
     resolution: {integrity: sha512-zZOO7i+JhojO8qmlyR/URui6LyfHJY6m+L9nwyX5GiKD78YoRaZ5tzz6X0fkl+5bD3uwlDHayf6Oe8Fu36RKNg==}
@@ -1363,6 +1369,8 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
 snapshots:
+
+  98.css@0.1.20: {}
 
   '@astrojs/compiler@2.11.0': {}
 
