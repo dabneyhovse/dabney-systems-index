@@ -11,14 +11,19 @@ const normalizeSlug = (path: string): string => {
   return path
     .split("/")
     .slice(0, -1)
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .map((part) =>
+      part
+        .split("-")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ")
+    )
     .join("/");
 };
 
 const createTree = (systems: CollectionEntry<"systems">[]): TreeNode => {
   const root: TreeNode = { name: "", systems: [], children: [] };
   systems.forEach((system) => {
-    normalizeSlug(system.data.slug)
+    normalizeSlug(system.id)
       .split("/")
       .reduce((node, part) => {
         let child = node.children.find((child) => child.name === part);
@@ -54,7 +59,7 @@ const node = Astro.props.node ?? createTree(await getCollection("systems"));
   {
     node.systems.map((system) => (
       <li>
-        <a href={`/${system.data.slug}`}>{system.data.name}</a>
+        <a href={`/${system.id}`}>{system.data.name}</a>
       </li>
     ))
   }
