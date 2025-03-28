@@ -1,6 +1,7 @@
 ---
 import "98.css";
 import AddressBook from "../assets/address_book-0.png";
+import TreeView from "../components/TreeView.astro";
 ---
 
 <!doctype html>
@@ -14,13 +15,15 @@ import AddressBook from "../assets/address_book-0.png";
   </head>
   <body>
     <aside>
-      <ul class="tree-view">
-        <li><a href="/">Home</a></li>
-      </ul>
+      <TreeView />
     </aside>
 
     <main>
-      <h1>Dabney Systems Index</h1>
+      <h2>Dabney Systems Index</h2>
+      <p>
+        The Dabney Systems Index is a directory for all digital resources under
+        the control of Dabney House.
+      </p>
       <hr />
       <slot />
     </main>

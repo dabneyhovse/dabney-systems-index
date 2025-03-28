@@ -2,8 +2,6 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 
-// `post` will match your 'blog' collection schema type
-
 export async function getStaticPaths() {
   const systems = await getCollection("systems");
   return systems.map((system: CollectionEntry<"systems">) => ({
@@ -22,7 +20,7 @@ const { Content } = await system.render();
 
 <Layout>
   <h2>
-    {system.slug}
+    {system.}
   </h2>
   <Content />
 </Layout>

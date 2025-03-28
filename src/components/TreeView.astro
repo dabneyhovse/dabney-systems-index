@@ -1,0 +1,68 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+
+interface TreeNode {
+  name: string;
+  systems: CollectionEntry<"systems">[];
+  children: TreeNode[];
+}
+
+const normalizeSlug = (path: string): string => {
+  return path
+    .split("/")
+    .slice(0, -1)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join("/");
+};
+
+const createTree = (systems: CollectionEntry<"systems">[]): TreeNode => {
+  const root: TreeNode = { name: "", systems: [], children: [] };
+  systems.forEach((system) => {
+    normalizeSlug(system.data.slug)
+      .split("/")
+      .reduce((node, part) => {
+        let child = node.children.find((child) => child.name === part);
+        if (!child) {
+          child = { name: part, systems: [], children: [] };
+          node.children.push(child);
+        }
+        return child;
+      }, root)
+      .systems.push(system);
+  });
+  return root;
+};
+
+type Props = {
+  node?: TreeNode;
+};
+
+const isRoot = Astro.props.node === undefined;
+const node = Astro.props.node ?? createTree(await getCollection("systems"));
+---
+
+{node.name && <div class="node-name">{node.name}</div>}
+
+<ul class={isRoot ? "tree-view" : ""}>
+  {
+    isRoot && (
+      <li>
+        <a href="/">Home</a>
+      </li>
+    )
+  }
+  {
+    node.systems.map((system) => (
+      <li>
+        <a href={`/${system.data.slug}`}>{system.data.name}</a>
+      </li>
+    ))
+  }
+  {
+    node.children.map((child) => (
+      <li>
+        <Astro.self node={child} />
+      </li>
+    ))
+  }
+</ul>
